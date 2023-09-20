@@ -1,10 +1,16 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 import express from 'express'
+import AdminJS from 'adminjs'
+import AdminJSExpress from '@adminjs/express'
 
 const prisma = new PrismaClient()
 const app = express()
 
 app.use(express.json())
+
+const admin = new AdminJS({})
+const adminRouter = AdminJSExpress.buildRouter(admin)
+app.use(admin.options.rootPath, adminRouter)
 
 app.post(`/signup`, async (req, res) => {
   const { name, email, posts } = req.body
@@ -147,6 +153,6 @@ app.get('/feed', async (req, res) => {
 
 const server = app.listen(3000, () =>
   console.log(`
-🚀 Server ready at: http://localhost:3000
+🚀 Server ready at: http://localhost:3000${admin.options.rootPath}
 ⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`),
 )

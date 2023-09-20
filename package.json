@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node --esm src/index.ts"
   },
   "dependencies": {
     "@adminjs/express": "^6.0.0",
@@ -23,5 +23,6 @@
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
-  }
+  },
+  "type": "module"
 }
