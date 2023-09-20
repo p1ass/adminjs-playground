@@ -8,6 +8,9 @@ dependencies:
   '@adminjs/express':
     specifier: ^6.0.0
     version: 6.0.0(adminjs@7.2.2)(express-formidable@1.2.0)(express-session@1.17.3)(express@4.18.2)(tslib@2.6.2)
+  '@adminjs/prisma':
+    specifier: ^5.0.1
+    version: 5.0.1(@prisma/client@5.3.1)(adminjs@7.2.2)
   '@prisma/client':
     specifier: 5.3.1
     version: 5.3.1(prisma@5.3.1)
@@ -109,6 +112,16 @@ packages:
       express-formidable: 1.2.0
       express-session: 1.17.3
       tslib: 2.6.2
+    dev: false
+
+  /@adminjs/prisma@5.0.1(@prisma/client@5.3.1)(adminjs@7.2.2):
+    resolution: {integrity: sha512-Qi/Peclt/Tj+bz0EWI0yq2kFHQZ6/K3Ukw1aXJA+PCwUFdrWZVqdUbhrubIFTqs4R9jJdqFRGRYoy0e5vMh76g==}
+    peerDependencies:
+      '@prisma/client': ^5.0.0
+      adminjs: ^7.0.0
+    dependencies:
+      '@prisma/client': 5.3.1(prisma@5.3.1)
+      adminjs: 7.2.2
     dev: false
 
   /@ampproject/remapping@2.2.1:
