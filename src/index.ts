@@ -1,6 +1,6 @@
 import {Prisma, PrismaClient} from '@prisma/client'
 import express from 'express'
-import AdminJS from 'adminjs'
+import AdminJS, {ActionHandler, AdminJSOptions, RecordActionResponse,ResourceWithOptions} from 'adminjs'
 import AdminJSExpress from '@adminjs/express'
 import {Database, Resource, getModelByName} from '@adminjs/prisma'
 
@@ -13,9 +13,34 @@ AdminJS.registerAdapter({
   Resource: Resource,
   Database: Database,
 })
-const adminOptions = {
+
+const publishActionHandler: ActionHandler<RecordActionResponse> = async (request, response, context) => {
+  const post = context.record!
+  post.set('published', true)
+  await post.save(context)
+  return {
+    notice: {
+      message: "公開されました🚀"
+    },
+    record: post.toJSON(context.currentAdmin)
+  }
+}
+const postResource:ResourceWithOptions = {
+  resource: { model: getModelByName('Post'), client: prisma },
+  options: {
+    actions: {
+      publish: {
+        actionType: 'record',
+        component: false,
+        handler: publishActionHandler,
+      },
+    },
+  },
+}
+
+const adminOptions:AdminJSOptions = {
   resources: [
-    {resource: {model: getModelByName('Post'), client: prisma}, options: {},},
+    postResource,
     {resource: {model: getModelByName('User'), client: prisma}, options: {},},
   ]
 }
